@@ -43,8 +43,8 @@ public class RetrofitHttp {
             .readTimeout(Constants.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
             .connectTimeout(Constants.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
             .addInterceptor(new HeadInterceptor())
-            .addInterceptor(loggingInterceptor.setLevel(level))
-            .addInterceptor(new OKHTTPLogInterceptor());
+            .addInterceptor(loggingInterceptor.setLevel(level));
+//            .addInterceptor(new OKHTTPLogInterceptor());
     /*http://blog.csdn.net/xx326664162/article/details/78044877
     Application interceptors应用程序拦截器
     不需要担心比如重定向和重试的中间响应。

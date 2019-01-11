@@ -5,11 +5,15 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
+import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
-
+import static okhttp3.internal.Util.UTF_8;
 final class NewGsonResponseBodyConverter<T> implements  Converter<ResponseBody, T> {
     private final Gson gson;
     private final TypeAdapter<T> adapter;
@@ -24,7 +28,12 @@ final class NewGsonResponseBodyConverter<T> implements  Converter<ResponseBody, 
         String response = value.string();
         System.out.println("Response data before convert:"+ response);
 
-        JsonReader jsonReader = gson.newJsonReader(value.charStream());
+//        JsonReader jsonReader = gson.newJsonReader(value.charStream());
+        MediaType mediaType = value.contentType();
+        Charset charset = mediaType != null ? mediaType.charset(UTF_8) : UTF_8;
+        ByteArrayInputStream bis = new ByteArrayInputStream(response.getBytes());
+        InputStreamReader reader = new InputStreamReader(bis, charset);
+        JsonReader jsonReader = gson.newJsonReader(reader);
         try{
             return adapter.read(jsonReader);
         }finally {

@@ -32,6 +32,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.squareup.picasso.RequestHandler;
+import com.yang.bean.LoginRequstBean;
+import com.yang.bean.TestRespBean;
 import com.yang.mvppresenter.IPresenter;
 import com.yang.mvpview.LoginActivity;
 import com.yang.net2request.NTRespBean;
@@ -107,23 +110,38 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            version = packInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    },
-                    PERMISSIONS_REQUEST);
-        } else {
-            retrofitCheckVersion();
-        }
+        LoginRequstBean requstBean = new LoginRequstBean();
+        requstBean.setMobile("+86109");
+        requstBean.setPassword("123456");
+        RetrofitHttp.getInstance().login(requstBean)
+                .compose(RxResultHelper.transformer)
+                .compose(RxResultHelper.handleRespbeanResult())
+                .subscribe(response -> {
+                    System.out.println(response instanceof TestRespBean);
+                    TestRespBean bean = (TestRespBean)response;
+                    System.out.println("bean id : "+bean.getId());
+                    System.out.println(response.toString());
+                },throwable -> {
+                    System.out.println(throwable.toString());
+                });
+
+//        try {
+//            PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+//            version = packInfo.versionCode;
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+//                            Manifest.permission.ACCESS_COARSE_LOCATION,
+//                            Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    },
+//                    PERMISSIONS_REQUEST);
+//        } else {
+//            retrofitCheckVersion();
+//        }
     }
 
     @Override

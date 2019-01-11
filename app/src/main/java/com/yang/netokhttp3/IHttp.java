@@ -4,6 +4,7 @@ import com.yang.bean.EditUserInfoRespBean;
 import com.yang.bean.GetAlertsRespBean;
 import com.yang.bean.GetRosterRespBean;
 import com.yang.bean.InspectionJobRespBean;
+import com.yang.bean.LoginRequstBean;
 import com.yang.bean.PayCashRespBean;
 
 import java.util.Map;
@@ -12,9 +13,12 @@ import com.yang.bean.EditUserImgRespBean;
 import com.yang.bean.GetJobExtraChargeRespBean;
 import com.yang.bean.GetUserInfoRespBean;
 import com.yang.bean.RespBean;
+import com.yang.bean.TestRespBean;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -30,6 +34,14 @@ import retrofit2.http.Url;
  * Created by Administrator on 2016/8/31.
  */
 public interface IHttp {
+
+    @POST("mlogin/")
+    rx.Observable<TestRespBean> login(@Body LoginRequstBean loginRequstBean);
+
+
+
+
+
 //    @POST("/login")
 //    @FormUrlEncoded
 //    rx.Observable<RespBean<LoginRespBean>> login();

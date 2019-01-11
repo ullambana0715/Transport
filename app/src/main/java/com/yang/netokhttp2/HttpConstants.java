@@ -5,10 +5,13 @@ package com.yang.netokhttp2;
  */
 public class HttpConstants {
 //    public static String TEST_URL_190 = "http://192.168.1.190";
-    public static String TEST_URL_190 = "http://192.168.1.222";
+    public static String TEST_URL_190 = "https://dev.xiaogaijun.com/";
 //    public static String TEST_URL_190 = "http://10.10.11.11";
     public static String HOTLINE_URL = "http://fleet365.com";
     public static String TEST_URL = TEST_URL_190;
+    public static final String REGISTER_PASSWORD_KEY = "67ef9c880f8e33966d60d612d32562301f343c3b";
+
+    public static final String SERVER_URL = "https://dev.xiaogaijun.com/";
 
     public static final String login = "/login";
     public static final String logout = "/mlogic/app/staff/logout";
