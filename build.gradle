@@ -2,12 +2,14 @@
 //根目录gradle文件，可以声明其他project在编译时共用的模块，比如android-apt用来编译的注解框架Annotations，也可以用def进行变量声明,但是只能在本gradle文件引用，无法在其他模块引用该gradle文件声明的变量，
 buildscript {
     repositories {
-        jcenter()//是由JFrog公司提供的Bintray中的Java仓库。它是当前世界上最大的Java和Android开源软件构件仓库。
-                 // 所有内容都通过内容分发网络（CDN）使用加密https连接获取。JCenter是Goovy Grape内的默认仓库，Gradle内建支持（jcenter()仓库），非常易于在（可能除了Maven之外的）其他构建工具内进行配置。
-                 //JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件仅存在mavenCenter中。
-       // mavenCentral() //中央仓库（http://repo1.maven.org/maven2/）是由Sonatype公司提供的服务，它是Apache Maven、SBT和其他构建系统的默认仓库，并能很容易被Apache Ant/Ivy、Gradle和其他工具所使用。
-                       // 开源组织例如Apache软件基金会、Eclipse基金会、JBoss和很多个人开源项目都将构件发布到中央仓库。 maven中央仓库已经将内容浏览功能禁掉了，可在http://search.maven.org/查询构件
-        google()
+//        jcenter()//是由JFrog公司提供的Bintray中的Java仓库。它是当前世界上最大的Java和Android开源软件构件仓库。
+//                 // 所有内容都通过内容分发网络（CDN）使用加密https连接获取。JCenter是Goovy Grape内的默认仓库，Gradle内建支持（jcenter()仓库），非常易于在（可能除了Maven之外的）其他构建工具内进行配置。
+//                 //JCenter相比mavenCenter构件更多，性能也更好。但还是有些构件仅存在mavenCenter中。
+//       // mavenCentral() //中央仓库（http://repo1.maven.org/maven2/）是由Sonatype公司提供的服务，它是Apache Maven、SBT和其他构建系统的默认仓库，并能很容易被Apache Ant/Ivy、Gradle和其他工具所使用。
+//                       // 开源组织例如Apache软件基金会、Eclipse基金会、JBoss和很多个人开源项目都将构件发布到中央仓库。 maven中央仓库已经将内容浏览功能禁掉了，可在http://search.maven.org/查询构件
+//        google()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -23,8 +25,9 @@ def WOLEGERIA = 'version'
 allprojects {
     tasks.withType(Javadoc).all { enabled = false }
     repositories {
-        jcenter()
+//        jcenter()
         getLogger().log(LogLevel.DEBUG,WOLEGERIA);
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
         google()
     }
 }

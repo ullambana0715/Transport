@@ -47,8 +47,6 @@ android {
         exclude 'META-INF/maven/com.google.auto/auto-common/pom.xml'//当遇到有编译重复的错误时可以在这里单独忽略
         exclude 'META-INF/services/javax.annotation.processing.Processor'//当遇到有编译重复文件的错误时可以在这里单独忽略
         exclude 'META-INF/maven/com.google.auto/auto-common/pom.properties'
-        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
-        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
         exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
         exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
     }
