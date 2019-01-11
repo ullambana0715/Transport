@@ -1,5 +1,7 @@
 package com.yang.netokhttp3;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.Logger;
 import com.yang.App;
 import com.yang.netokhttp2.HttpConstants;
@@ -61,7 +63,8 @@ public class RetrofitHttp {
         mHttp = mRetrofitBulder.baseUrl(HttpConstants.TEST_URL)
                 .client(mOkHttpBuilder.build())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create(buildGson()))
+                .addConverterFactory(NewGsonConverterFactory.create(buildGson()))
                 .build()
                 .create(IHttp.class);
     }
@@ -148,5 +151,15 @@ public class RetrofitHttp {
                         .build();
             }
         }
+    }
+
+    public static Gson buildGson(){
+        return new GsonBuilder().registerTypeAdapter(Integer.class,new IntTransformDefaultAdapter())
+                .registerTypeAdapter(int.class,new IntTransformDefaultAdapter())
+                .registerTypeAdapter(Double.class,new DoubleTransformDefaultAdapter())
+                .registerTypeAdapter(double.class,new DoubleTransformDefaultAdapter())
+                .registerTypeAdapter(Long.class,new LongTransformDefaultAdapter())
+                .registerTypeAdapter(long.class,new LongTransformDefaultAdapter())
+                .create();
     }
 }
